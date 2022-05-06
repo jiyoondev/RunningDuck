@@ -1,36 +1,38 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth - 10;
+canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
 var runner = {
-    x: 10,
+    x: 100,
     y: 200,
     width: 50,
     height: 50,
     draw() {
-        ctx.fillStyle = "green";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        // ctx.drawImage(duck, 50, 50);
+        ctx.drawImage(ghost, this.x, this.y, this.width, this.height);
     },
 };
 
-var duck = new Image();
-duck.src = "../images/runner_duck.gif";
+var ghost = new Image();
+ghost.src = "../images/running_ghost.png";
+
+var pumpkin = new Image();
+pumpkin.src = "../images/obs_pumpkin.png";
 
 runner.draw();
 
 class Obstacle1 {
     constructor() {
-        this.x = 500;
+        this.x = window.innerWidth;
         this.y = 200;
         this.height = 50;
         this.width = 50;
     }
     draw() {
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y, this.height, this.width);
+        // ctx.fillStyle = "green";
+        // ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(pumpkin, this.x, this.y, this.width, this.height);
     }
 }
 
@@ -45,7 +47,7 @@ function run() {
     animation = requestAnimationFrame(run);
     timer++;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (timer % (100 + Math.floor(Math.random() * 200)) === 0) {
+    if (timer % (50 + Math.floor(Math.random() * 200)) === 0) {
         var obs1 = new Obstacle1();
         obstacles.push(obs1);
         obs1.draw();
