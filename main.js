@@ -1,12 +1,8 @@
-
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth - 10;
 canvas.height = window.innerHeight - 100;
-
-var duck = new GIF();
-gifler('../Images/runner_duck.gif').frames(canvas, onDrawFrame);
 
 var runner = {
     x: 10,
@@ -14,13 +10,16 @@ var runner = {
     width: 50,
     height: 50,
     draw() {
-       // ctx.fillStyle = "green";
-       // ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.drawImage(duck, 50, 50)
+        ctx.fillStyle = "green";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // ctx.drawImage(duck, 50, 50);
     },
 };
 
-// runner.draw();
+var duck = new Image();
+duck.src = "../images/runner_duck.gif";
+
+runner.draw();
 
 class Obstacle1 {
     constructor() {
@@ -78,7 +77,7 @@ function run() {
         }
     }
 
-     runner.draw();
+    runner.draw();
 }
 
 run();
@@ -87,7 +86,7 @@ var jumping = false;
 
 document.addEventListener("keydown", function (e) {
     if (e.code == "Space") {
-        jumping = true; 
+        jumping = true;
     }
 });
 
