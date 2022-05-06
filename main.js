@@ -45,7 +45,7 @@ function run() {
     animation = requestAnimationFrame(run);
     timer++;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (timer % 250 === 0) {
+    if (timer % (100 + Math.floor(Math.random() * 200)) === 0) {
         var obs1 = new Obstacle1();
         obstacles.push(obs1);
         obs1.draw();
@@ -54,7 +54,7 @@ function run() {
         if (a.x < 0) {
             o.splice(i, 1);
         }
-        a.x--;
+        a.x -= 4;
 
         isCollide(runner, a);
 
@@ -62,18 +62,18 @@ function run() {
     });
 
     if (jumping == true) {
-        runner.y--;
+        runner.y -= 4;
         jumpingTimer++;
     }
 
-    if (jumpingTimer > 100) {
+    if (jumpingTimer > 36) {
         jumping = false;
         jumpingTimer = 0;
     }
 
     if (jumping == false) {
         if (runner.y < 200) {
-            runner.y++;
+            runner.y += 4;
         }
     }
 
