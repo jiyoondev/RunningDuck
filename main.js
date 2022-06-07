@@ -10,39 +10,9 @@ var runner = {
     width: 80,
     height: 80,
     draw() {
-        // ctx.beginPath();
-        // ctx.moveTo(98, 318); // Move pen to bottom-left corner
-        // ctx.lineTo(120, 200); // Line to top corner
-        // ctx.closePath(); // Line to bottom-left corner
-        // ctx.stroke();
+        // ctx.fillStyle = "green";
+        // ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.drawImage(ghost, this.x, this.y, this.width, this.height);
-    },
-};
-
-var runnerHitbox = {
-    x: 100,
-    y: 250,
-    color: "red",
-    draw() {
-        ctx.beginPath();
-        ctx.strokeStyle = this.color;
-        ctx.moveTo(98, 318); // Move pen to bottom-left corner
-        ctx.lineTo(115, 290); // Line to top corner
-        ctx.lineTo(126, 260); // Line to top corner
-        ctx.lineTo(140, 250); // Line to top corner
-        ctx.lineTo(150, 248); // Line to top corner
-        ctx.lineTo(150, 248); // Line to top corner
-        ctx.lineTo(160, 248); // Line to top corner
-        ctx.lineTo(176, 263); // Line to top corner
-        ctx.lineTo(180, 283); // Line to top corner
-        ctx.lineTo(173, 303); // Line to top corner
-        ctx.lineTo(163, 323); // Line to top corner
-        ctx.lineTo(139, 331); // Line to top corner
-        //ctx.lineTo(119, 331); // Line to top corner
-        ctx.closePath(); // Line to bottom-left corner
-        ctx.stroke();
-        ctx.fillStyel = this.color;
-        ctx.fill();
     },
 };
 
@@ -53,9 +23,6 @@ ghost.src = "../images/running_ghost.png";
 
 var pumpkin = new Image();
 pumpkin.src = "../images/obs_pumpkin.png";
-
-runner.draw();
-runnerHitbox.draw();
 
 class Obstacle1 {
     constructor() {
@@ -93,14 +60,18 @@ function run() {
         }
         a.x -= 4;
 
-        isCollide(runnerHitbox, a);
+        isCollide(runnerHitbox1, a);
+        isCollide(runnerHitbox2, a);
+        isCollide(runnerHitbox3, a);
 
         a.draw();
     });
 
     if (jumping == true) {
         runner.y -= 4;
-        runnerHitbox.y -= 4;
+        runnerHitbox1.y -= 4;
+        runnerHitbox2.y -= 4;
+        runnerHitbox3.y -= 4;
         jumpingTimer++;
     }
 
@@ -112,14 +83,16 @@ function run() {
     if (jumping == false) {
         if (runner.y < 250) {
             runner.y += 4;
-        }
-        if (runnerHitbox.y < 250) {
-            runnerHitbox.y += 4;
+            runnerHitbox1.y += 4;
+            runnerHitbox2.y += 4;
+            runnerHitbox3.y += 4;
         }
     }
 
-    runnerHitbox.draw();
     runner.draw();
+    // runnerHitbox2.draw();
+    // runnerHitbox3.draw();
+    // runnerHitbox1.draw();
 }
 //setInterval(run, 10);
 run();
@@ -133,9 +106,9 @@ document.addEventListener("keydown", function (e) {
 });
 
 /* 충돌 확인 */
-function isCollide(runnerHitbox, obs1) {
-    var xDiff = obs1.x - (runnerHitbox.x + runnerHitbox.width);
-    var yDiff = obs1.y - (runnerHitbox.y + runnerHitbox.height);
+function isCollide(runnerHitbox1, obs1) {
+    var xDiff = obs1.x - (runnerHitbox1.x + runnerHitbox1.width);
+    var yDiff = obs1.y - (runnerHitbox1.y + runnerHitbox1.height);
     if (xDiff < 0 && yDiff < 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         cancelAnimationFrame(animation);
